@@ -30,16 +30,38 @@ firebase
 // handle click on user item
 
 window.handleUser = function (id) {
-  let content = "";
   // find the user that matches the id
 
   const user = allUsers.find((user) => user.userId === id);
 
-  content +=
-    '<img src="./avatar.jpg" alt="" srcset="" class="mx-3 user img-fluid" />';
-  content += '<h3 class="text-primary">' + user.name + "</h3>";
+  document.getElementById("user-item").innerHTML = `
+<img src="./avatar.jpg" alt="" srcset="" class="mx-3 user img-fluid" />
+<h3 class="text-primary">${user.name}</h3>
+`;
 
-  $("#user-item").append(content);
+  // get current user
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      const userId = user.uid;
+
+      // send message
+
+      document.getElementById("sendMessage").onclick = function () {
+        const msg = document.getElementById("message").value;
+
+        let sendMessage = firebase.firestore().collection("messages").doc();
+        sendMessage
+          .set({
+            message: msg,
+            docId: sendMessage.id,
+            isRead: "false",
+            messageFrom: userId,
+            messageTo: id,
+            timeStamp: new Date(),
+          })
+          .then(() => console.log("sent"));
+      };
+    }
+  });
 };
-
-console.log(document.getElementById("user-item"));
