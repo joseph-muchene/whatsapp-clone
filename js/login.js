@@ -10,10 +10,11 @@ document.getElementById("submit").onclick = function () {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
+      localStorage.setItem("user", JSON.stringify(userCredential));
       // // Signed in
       // var user = userCredential.user;
       // console.log("user signed in");
-      window.location = "/whatsapp-clone/index.html";
+      window.location = "/index.html";
     })
     .catch((error) => {
       var errorCode = error.code;
