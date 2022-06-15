@@ -13,7 +13,7 @@ document.getElementById("submit").onclick = function () {
       // // Signed in
       // var user = userCredential.user;
       // console.log("user signed in");
-      window.location = "/index.html";
+      window.location = "/whatsapp-clone/index.html";
     })
     .catch((error) => {
       var errorCode = error.code;
