@@ -108,8 +108,6 @@ window.handleUser = function (id) {
           });
           document.getElementById("boxMessage").innerHTML = content;
         });
-    } else {
-      window.location = "/views/register.html";
     }
   });
 };
