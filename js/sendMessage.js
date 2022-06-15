@@ -102,7 +102,7 @@ window.handleUser = function (id) {
           document.getElementById("boxMessage").innerHTML = content;
         });
     } else {
-      console.log("not registered");
+      window.location = "/views/register.html";
     }
   });
 };
