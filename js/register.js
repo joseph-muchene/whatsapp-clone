@@ -25,7 +25,7 @@ document.getElementById("submit").onclick = function () {
         .then((user) => {
           // redirect user to the homepage
           // console.log(user);
-          window.location = "/whatsapp-clone";
+          window.location = "/whatsapp-clone/index.html";
         });
     })
     .catch((err) => console.log(err));
