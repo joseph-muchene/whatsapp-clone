@@ -25,7 +25,7 @@ document.getElementById("submit").onclick = function () {
         .then((user) => {
           // redirect user to the homepage
           // console.log(user);
-          window.location = "/index.html";
+          window.location = "/";
         });
     })
     .catch((err) => console.log(err));
