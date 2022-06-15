@@ -10,9 +10,10 @@ document.getElementById("submit").onclick = function () {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      console.log("user signed in");
+      // // Signed in
+      // var user = userCredential.user;
+      // console.log("user signed in");
+      window.location = "/index.html";
     })
     .catch((error) => {
       var errorCode = error.code;

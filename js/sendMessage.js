@@ -1,3 +1,5 @@
+const authUser = JSON.parse(localStorage.getItem("user"));
+console.log(authUser);
 // display all users
 let allUsers = [];
 
@@ -10,18 +12,22 @@ firebase
     querySnapshot.forEach((doc) => {
       // push all users to the array
       allUsers.push(doc.data());
+      if (authUser !== null) {
+        if (authUser.uid !== doc.data().userId) {
+          content += '<ul class="list-group">';
 
-      content += '<ul class="list-group">';
+          content +=
+            '<li class="list-group-item" id="user-item" onclick="handleUser(\'' +
+            doc.data().userId +
+            "')\">";
+          content +=
+            ' <img src="./avatar.jpg" alt="" srcset="" class="avatar img-thumbnail" />';
+          content += ' <p class="text-center lead">' + doc.data().name + "</p>";
+          content += "</li>";
 
-      content +=
-        '<li class="list-group-item" id="user-item" onclick="handleUser(\'' +
-        doc.data().userId +
-        "')\">";
-      content +=
-        ' <img src="./avatar.jpg" alt="" srcset="" class="img-thumbnail" />';
-      content += ' <p class="text-center">' + doc.data().name + "</p>";
-      content += "</li>";
-      content += "</ul>";
+          content += "</ul>";
+        }
+      }
     });
     $("#users-info").append(content);
   })
@@ -43,6 +49,8 @@ window.handleUser = function (id) {
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+
       const userId = user.uid;
 
       // send message
@@ -62,6 +70,39 @@ window.handleUser = function (id) {
           })
           .then(() => console.log("sent"));
       };
+
+      // handle all messages
+      // get all messages
+
+      firebase
+        .firestore()
+        .collection("messages")
+        .where("messageTo", "==", id)
+        .get()
+        .then((messageSnapshot) => {
+          let content = "";
+          messageSnapshot.forEach((message) => {
+            console.log(message.data());
+            if (
+              message.data().messageFrom == userId &&
+              message.data().messageTo == id
+            ) {
+              content += "<br>";
+              content += `<p class="text-danger lead me">${
+                message.data().messageFrom == userId && "me"
+              } ${message.data().message}</p>`;
+            }
+            if (message.data().messageFrom !== userId) {
+              content += "<br>";
+              content += `<p class="text-info lead">${
+                message.data().messageFrom !== userId && "user"
+              } ${message.data().message}</p>`;
+            }
+          });
+          document.getElementById("boxMessage").innerHTML = content;
+        });
+    } else {
+      console.log("not registered");
     }
   });
 };

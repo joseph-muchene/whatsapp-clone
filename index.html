@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>whatsapp clone</title>
+    <link rel="stylesheet" href="./css/main.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -28,7 +29,7 @@
     ></script>
     <style>
       .user {
-        height: 20vh;
+        height: 10vh;
         object-fit: contain;
       }
     </style>
@@ -42,13 +43,13 @@
         <h4 class="mx-4 mb-3 mt-2">message</h4>
 
         <div class="col-md-8">
-          <textarea
+          <div class="box-messages" id="boxMessage"></div>
+          <input
             name=""
             id="message"
-            class="form-control"
-            cols="40"
-            rows="20"
-          ></textarea>
+            class="form-control mt-4"
+            placeholder="write message"
+          />
 
           <button class="btn btn-outline-primary w-100 m-2" id="sendMessage">
             Submit
