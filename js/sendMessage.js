@@ -73,7 +73,9 @@ window.handleUser = function (id) {
             messageTo: id,
             timeStamp: new Date(),
           })
-          .then(() => console.log("sent"));
+          .then(() => {
+            window.location.reload();
+          });
       };
 
       // handle all messages
