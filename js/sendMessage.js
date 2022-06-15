@@ -36,6 +36,11 @@ firebase
 // handle click on user item
 
 window.handleUser = function (id) {
+  // togglebox
+  if (document.querySelector(".msgbox").classList.contains("hidebox")) {
+    document.querySelector(".msgbox").classList.remove("hidebox");
+  }
+
   // find the user that matches the id
 
   const user = allUsers.find((user) => user.userId === id);

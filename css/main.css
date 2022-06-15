@@ -9,6 +9,12 @@
   height: 20vh !important;
   border-radius: 50% !important;
 }
+.hidebox {
+  display: none;
+}
+.showbox {
+  transition: all 0.3s linear;
+}
 .me {
   background-color: rgba(9, 108, 9, 0.292);
   color: white;
