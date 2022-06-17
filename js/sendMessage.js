@@ -17,7 +17,7 @@ firebase
           content += '<ul class="list-group">';
 
           content +=
-            '<li class="list-group-item" id="user-item" onclick="handleUser(\'' +
+            '<li class="list-group-item mb-3 bg-dark text-white" id="user-item" onclick="handleUser(\'' +
             doc.data().userId +
             "')\">";
           content +=
@@ -74,7 +74,20 @@ window.handleUser = function (id) {
             timeStamp: new Date(),
           })
           .then(() => {
-            window.location.reload();
+            console.log("message sent");
+
+            document.getElementById("infomessage").innerText = "message sent";
+            setTimeout(() => {
+              document.getElementById("infomessage").innerText = "";
+            }, 3000);
+
+            document.getElementById("infomsg").innerText =
+              "reload page to see your messages";
+
+            // reset info after 5s
+            setTimeout(() => {
+              document.getElementById("infomsg").innerText = "";
+            }, 5000);
           });
       };
 
