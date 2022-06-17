@@ -11,6 +11,7 @@ document.getElementById("submit").onclick = function () {
     .createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       console.log(userCredential);
+      localStorage.setItem("user", JSON.stringify(userCredential));
       const userId = userCredential.user.uid;
       // add user to the firestore
       firebase
