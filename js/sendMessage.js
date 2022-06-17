@@ -85,6 +85,7 @@ window.handleUser = function (id) {
         .firestore()
         .collection("messages")
         .where("messageTo", "==", id)
+        .orderBy("timeStamp", "asc")
         .get()
         .then((messageSnapshot) => {
           let content = "";
@@ -96,14 +97,13 @@ window.handleUser = function (id) {
             ) {
               content += "<br>";
               content += `<p class="text-danger lead me">${
-                message.data().messageFrom == userId && "me"
+                message.data().messageFrom == userId && "(me)"
               } ${message.data().message}</p>`;
             }
             if (message.data().messageFrom !== userId) {
               content += "<br>";
-              content += `<p class="text-info lead">${
-                message.data().messageFrom !== userId && "user"
-              } ${message.data().message}</p>`;
+              content += `<p class="text-info lead">
+              ${message.data().message}</p>`;
             }
           });
           document.getElementById("boxMessage").innerHTML = content;
