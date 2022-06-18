@@ -29,7 +29,9 @@ document.getElementById("submit").onclick = function () {
           window.location = "/index.html";
         });
     })
-    .catch((err) => console.log(err));
+    .catch(
+      (err) => (document.getElementById("infomessage").innerText = err.message)
+    );
 
   // add the user to the users collection
 

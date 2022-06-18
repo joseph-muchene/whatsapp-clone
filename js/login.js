@@ -16,11 +16,7 @@ document.getElementById("submit").onclick = function () {
       // console.log("user signed in");
       window.location = "/index.html";
     })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-
-      console.log(errorCode);
-      console.log(errorMessage);
-    });
+    .catch(
+      (err) => (document.getElementById("infomessage").innerText = err.message)
+    );
 };
