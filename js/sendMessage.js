@@ -11,6 +11,7 @@ firebase
     let content = "";
     querySnapshot.forEach((doc) => {
       // push all users to the array
+
       allUsers.push(doc.data());
       if (authUser !== null) {
         if (authUser.uid !== doc.data().userId) {
@@ -98,8 +99,7 @@ window.handleUser = function (id) {
         .firestore()
         .collection("messages")
         .orderBy("timeStamp", "asc")
-        .get()
-        .then((messageSnapshot) => {
+        .onSnapshot((messageSnapshot) => {
           let content = "";
           messageSnapshot.forEach((message) => {
             console.log(id);
