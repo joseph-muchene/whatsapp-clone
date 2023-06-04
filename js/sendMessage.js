@@ -36,10 +36,10 @@ firebase
             doc.data().userId +
             "')\">";
 
-          content += `<h1 id="onlineStatus-${doc.data().userId}"></h1>`;
+          content += ' <h1 class="">' + doc.data().name + "</h1>";
+          content += `<p id="onlineStatus-${doc.data().userId}"></p>`;
           content +=
             ' <img src="./avatar.jpg" alt="" srcset="" class="avatar img-thumbnail" />';
-          content += ' <p class="text-center lead">' + doc.data().name + "</p>";
           content += "</li>";
 
           content += "</ul>";
@@ -75,7 +75,7 @@ window.handleUser = function (id) {
   // find the user that matches the id
 
   const user = allUsers.find((user) => user.userId === id);
-
+  console.log(user);
   document.getElementById("user-item").innerHTML = `
 <img src="./avatar.jpg" alt="" srcset="" class="mx-3 user img-fluid" onclick=${scrollToTop()} />
 <h3 class="text-primary">${user.name}</h3>
