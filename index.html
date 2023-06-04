@@ -54,14 +54,15 @@
       }
       .user {
         height: 10vh;
+        border-radius: 100%;
         object-fit: contain;
       }
     </style>
   </head>
 
   <body class="bg-dark">
-    <nav class="navbar bg-body-tertiary bg-primary">
-      <div class="">
+    <nav class="navbar bg-body-tertiary bg-primary p-2">
+      <div class="mx-3">
         <a class="navbar-brand text-white" href="#">
           <img
             src="./favicon.png"
@@ -83,7 +84,7 @@
       <h3 class="text-info text-center m-2" id="infomessage"></h3>
       <p class="text-info text-center m-2" id="infomsg"></p>
     </div>
-    <div class="container ">
+    <div class="container">
       <div class="d-flex align-items-center mb-2" id="user-item"></div>
       <div class="row">
         <h4 class="mx-4 mb-3 mt-2">message</h4>
@@ -97,7 +98,7 @@
             placeholder="write message"
           />
 
-          <button class="btn btn-outline-primary w-100 m-2" id="sendMessage">
+          <button class="btn btn-outline-primary w-100 my-3" id="sendMessage">
             Send
           </button>
         </div>
