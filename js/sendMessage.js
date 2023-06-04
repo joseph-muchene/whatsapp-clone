@@ -1,5 +1,20 @@
+function getOnlineStatus(userId) {
+  return new Promise((resolve, reject) => {
+    const userStatusDatabaseReference = firebase
+      .database()
+      .ref("/status/" + userId);
+
+    userStatusDatabaseReference.on("value", (snapshot) => {
+      const onlineStatus = snapshot.val()?.state || "offline";
+
+      resolve(onlineStatus);
+      // You can do further processing with the online status data here
+    });
+  });
+}
+
 const authUser = JSON.parse(localStorage.getItem("user"));
-console.log(authUser);
+
 // display all users
 let allUsers = [];
 
@@ -16,17 +31,32 @@ firebase
       if (authUser !== null) {
         if (authUser.uid !== doc.data().userId) {
           content += '<ul class="list-group">';
-
           content +=
             '<li class="list-group-item mb-3 bg-dark text-white" id="user-item" onclick="handleUser(\'' +
             doc.data().userId +
             "')\">";
+
+          content += `<h1 id="onlineStatus-${doc.data().userId}"></h1>`;
           content +=
             ' <img src="./avatar.jpg" alt="" srcset="" class="avatar img-thumbnail" />';
           content += ' <p class="text-center lead">' + doc.data().name + "</p>";
           content += "</li>";
 
           content += "</ul>";
+
+          const userId = doc.data().userId;
+          getOnlineStatus(userId)
+            .then((onlineStatus) => {
+              const onlineStatusElement = document.getElementById(
+                "onlineStatus-" + userId
+              );
+              if (onlineStatusElement) {
+                onlineStatusElement.textContent = onlineStatus;
+              }
+            })
+            .catch((error) => {
+              console.log("Error getting online status:", error);
+            });
         }
       }
     });
@@ -47,10 +77,17 @@ window.handleUser = function (id) {
   const user = allUsers.find((user) => user.userId === id);
 
   document.getElementById("user-item").innerHTML = `
-<img src="./avatar.jpg" alt="" srcset="" class="mx-3 user img-fluid" />
+<img src="./avatar.jpg" alt="" srcset="" class="mx-3 user img-fluid" onclick=${scrollToTop()} />
 <h3 class="text-primary">${user.name}</h3>
+
 `;
 
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
   // get current user
 
   firebase.auth().onAuthStateChanged((user) => {
@@ -99,10 +136,9 @@ window.handleUser = function (id) {
         .onSnapshot((messageSnapshot) => {
           let content = "";
           messageSnapshot.forEach((message) => {
-            console.log(id);
             // send the message
             let currentUser = JSON.parse(localStorage.getItem("user"));
-            console.log(currentUser);
+
             if (
               message.data().messageFrom == userId &&
               message.data().messageTo == id
