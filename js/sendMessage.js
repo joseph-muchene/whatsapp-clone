@@ -76,14 +76,11 @@ window.handleUser = function (id) {
           })
           .then(() => {
             console.log("message sent");
-
+            window.scrollTo({ top: 0, behavior: "smooth" });
             document.getElementById("infomessage").innerText = "message sent";
             setTimeout(() => {
               document.getElementById("infomessage").innerText = "";
             }, 3000);
-
-            document.getElementById("infomsg").innerText =
-              "reload page to see your messages";
 
             // reset info after 5s
             setTimeout(() => {
