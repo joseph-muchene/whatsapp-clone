@@ -115,6 +115,7 @@ window.handleUser = function (id) {
           })
           .then(() => {
             console.log("message sent");
+            document.getElementById("message").textContent = "";
             window.scrollTo({ top: 0, behavior: "smooth" });
             document.getElementById("infomessage").innerText = "message sent";
             setTimeout(() => {
