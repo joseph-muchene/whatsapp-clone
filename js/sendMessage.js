@@ -135,7 +135,7 @@ window.handleUser = function (id) {
       firebase
         .firestore()
         .collection("messages")
-        .orderBy("timeStamp", "desc")
+        // .orderBy("timeStamp", "desc")
         .onSnapshot((messageSnapshot) => {
           let content = "";
           messageSnapshot.forEach((message) => {
@@ -146,7 +146,6 @@ window.handleUser = function (id) {
               message.data().messageFrom == userId &&
               message.data().messageTo == id
             ) {
-           
               content += "<br>";
               content += `<p class="text-danger lead me"> ${
                 message.data().message
@@ -156,7 +155,6 @@ window.handleUser = function (id) {
               message.data().messageTo == userId &&
               message.data().messageFrom == id
             ) {
-            
               content += "<br>";
               content += `<p class="text-info lead">
               ${message.data().message}</p>`;
