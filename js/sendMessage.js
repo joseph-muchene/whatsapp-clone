@@ -111,7 +111,7 @@ window.handleUser = function (id) {
             isRead: "false",
             messageFrom: userId,
             messageTo: id,
-            timeStamp: firebase.firestore.Timestamp.now(),
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
           })
           .then(() => {
             console.log("message sent");
@@ -131,6 +131,7 @@ window.handleUser = function (id) {
 
       // handle all messages
       // get all messages
+
       firebase
         .firestore()
         .collection("messages")
@@ -138,26 +139,29 @@ window.handleUser = function (id) {
         .onSnapshot((messageSnapshot) => {
           let content = "";
           messageSnapshot.forEach((message) => {
+            // send the message
             let currentUser = JSON.parse(localStorage.getItem("user"));
-            const messageFrom = message.data().messageFrom;
-            const messageTo = message.data().messageTo;
 
             if (
-              (messageFrom === userId && messageTo === id) ||
-              (messageFrom === id && messageTo === userId)
+              message.data().messageFrom == userId &&
+              message.data().messageTo == id
             ) {
               console.log("executed");
               content += "<br>";
-              const messageClass =
-                messageFrom === userId
-                  ? "text-danger lead me"
-                  : "text-info lead";
-              content += `<p class="${messageClass}">${
+              content += `<p class="text-danger lead me"> ${
                 message.data().message
               }</p>`;
             }
+            if (
+              message.data().messageTo == userId &&
+              message.data().messageFrom == id
+            ) {
+              console.log("executed");
+              content += "<br>";
+              content += `<p class="text-info lead">
+              ${message.data().message}</p>`;
+            }
           });
-          // Use the 'content' variable as needed
           document.getElementById("boxMessage").innerHTML = content;
         });
     }
