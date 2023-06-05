@@ -135,13 +135,23 @@ window.handleUser = function (id) {
       firebase
         .firestore()
         .collection("messages")
-
+        .orderBy("timeStamp", "desc")
         .onSnapshot((messageSnapshot) => {
           let content = "";
           messageSnapshot.forEach((message) => {
             // send the message
             let currentUser = JSON.parse(localStorage.getItem("user"));
 
+
+             if (
+               message.data().messageTo == userId &&
+               message.data().messageFrom == id
+             ) {
+               console.log("executed");
+               content += "<br>";
+               content += `<p class="text-info lead">
+              ${message.data().message}</p>`;
+             }
             if (
               message.data().messageFrom == userId &&
               message.data().messageTo == id
@@ -152,15 +162,7 @@ window.handleUser = function (id) {
                 message.data().message
               }</p>`;
             }
-            if (
-              message.data().messageTo == userId &&
-              message.data().messageFrom == id
-            ) {
-              console.log("executed");
-              content += "<br>";
-              content += `<p class="text-info lead">
-              ${message.data().message}</p>`;
-            }
+           
           });
           document.getElementById("boxMessage").innerHTML = content;
         });
