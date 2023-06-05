@@ -135,7 +135,7 @@ window.handleUser = function (id) {
       firebase
         .firestore()
         .collection("messages")
-        // .orderBy("timeStamp", "desc")
+        .orderBy("timeStamp", "asc")
         .onSnapshot((messageSnapshot) => {
           let content = "";
           messageSnapshot.forEach((message) => {
