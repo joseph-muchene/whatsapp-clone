@@ -115,7 +115,7 @@ window.handleUser = function (id) {
           })
           .then(() => {
             console.log("message sent");
-            document.getElementById("message").textContent = "";
+            document.getElementById("message").value = "";
             window.scrollTo({ top: 0, behavior: "smooth" });
             document.getElementById("infomessage").innerText = "message sent";
             setTimeout(() => {
@@ -146,7 +146,7 @@ window.handleUser = function (id) {
               message.data().messageFrom == userId &&
               message.data().messageTo == id
             ) {
-              console.log("executed");
+           
               content += "<br>";
               content += `<p class="text-danger lead me"> ${
                 message.data().message
@@ -156,7 +156,7 @@ window.handleUser = function (id) {
               message.data().messageTo == userId &&
               message.data().messageFrom == id
             ) {
-              console.log("executed");
+            
               content += "<br>";
               content += `<p class="text-info lead">
               ${message.data().message}</p>`;
