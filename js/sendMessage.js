@@ -111,7 +111,7 @@ window.handleUser = function (id) {
             isRead: "false",
             messageFrom: userId,
             messageTo: id,
-            timeStamp: new Date(),
+            timeStamp: firebase.firestore.Timestamp.now(),
           })
           .then(() => {
             console.log("message sent");
