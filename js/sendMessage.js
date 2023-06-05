@@ -131,7 +131,6 @@ window.handleUser = function (id) {
 
       // handle all messages
       // get all messages
-
       firebase
         .firestore()
         .collection("messages")
@@ -139,31 +138,26 @@ window.handleUser = function (id) {
         .onSnapshot((messageSnapshot) => {
           let content = "";
           messageSnapshot.forEach((message) => {
-            // send the message
             let currentUser = JSON.parse(localStorage.getItem("user"));
+            const messageFrom = message.data().messageFrom;
+            const messageTo = message.data().messageTo;
 
-
-             if (
-               message.data().messageTo == userId &&
-               message.data().messageFrom == id
-             ) {
-               console.log("executed");
-               content += "<br>";
-               content += `<p class="text-info lead">
-              ${message.data().message}</p>`;
-             }
             if (
-              message.data().messageFrom == userId &&
-              message.data().messageTo == id
+              (messageFrom === userId && messageTo === id) ||
+              (messageFrom === id && messageTo === userId)
             ) {
               console.log("executed");
               content += "<br>";
-              content += `<p class="text-danger lead me"> ${
+              const messageClass =
+                messageFrom === userId
+                  ? "text-danger lead me"
+                  : "text-info lead";
+              content += `<p class="${messageClass}">${
                 message.data().message
               }</p>`;
             }
-           
           });
+          // Use the 'content' variable as needed
           document.getElementById("boxMessage").innerHTML = content;
         });
     }
