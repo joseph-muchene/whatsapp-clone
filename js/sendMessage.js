@@ -32,12 +32,14 @@ firebase
         if (authUser.uid !== doc.data().userId) {
           content += '<ul class="list-group">';
           content +=
-            '<li class="list-group-item mb-3 bg-dark text-white" id="user-item" onclick="handleUser(\'' +
+            '<li class="list-group-item mb-3 bg-light text-dark shadow-lg" id="user-item" onclick="handleUser(\'' +
             doc.data().userId +
             "')\">";
 
           content += ' <h1 class="">' + doc.data().name + "</h1>";
-          content += `<p id="onlineStatus-${doc.data().userId}"></p>`;
+          content += `<p class="text-primary " id="onlineStatus-${
+            doc.data().userId
+          }"></p>`;
           content +=
             ' <img src="./avatar.jpg" alt="" srcset="" class="avatar img-thumbnail" />';
           content += "</li>";
