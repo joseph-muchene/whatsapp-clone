@@ -13,7 +13,7 @@ body {
 }
 .avatar {
   height: 20vh !important;
-  border-radius: 50% !important;
+  border-radius: 100% !important;
 }
 .hidebox {
   display: none;
