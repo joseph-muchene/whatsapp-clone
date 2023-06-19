@@ -2,6 +2,13 @@
 
 body {
   font-family: "Anek Malayalam", sans-serif !important;
+  overflow-x: hidden;
+}
+
+.user {
+  height: 10vh !important;
+  border-radius: 100% !important;
+  object-fit: contain;
 }
 
 .box-messages {
